@@ -1,0 +1,75 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Welcome, {{ name }}</h1>
+
+<div class="list-group">
+  {% for acl in acls %}
+<form class="form" method="POST" action="/delete">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+<div class="input-group">
+  
+  <div class="input-group-btn">
+        <button type="submit" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+    </button>
+  </div>
+  <input type="text" name='ipaddress' class="form-control" value="{{ acl }}">
+</div>
+</form>
+  {% endfor %} 
+</div>
+
+<form class="form" method="POST" action="/add">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Save</button>
+      </span>
+      <input type="text" name='ipaddress' class="form-control" placeholder="{{user_ip}}">
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div>
+</form>
+        </div>
+      </div>
+    </div>
+{% endblock %}
