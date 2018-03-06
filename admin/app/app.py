@@ -11,8 +11,8 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from haproxyadmin import haproxy    
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address,get_ipaddr
-USERNAME='lihao'
-PASSWORD='vzllqw12'
+USERNAME='INPUTUSER'
+PASSWORD='INPUTPASSWD'
 
 
 app = Flask(__name__)
